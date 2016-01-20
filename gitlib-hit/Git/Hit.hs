@@ -103,6 +103,8 @@ instance (Applicative m, MonadThrow m, MonadIO m)
     treeOid (HitTree oid) = return oid
     updateReference       = hitUpdateRef
 
+    hashWorkdirPath       = error "undefined hashWorkdirPath"
+    getActualWorkdir      = error "undefined getActualWorkdir"
 
 {---- Conversions between different library types ----}
 

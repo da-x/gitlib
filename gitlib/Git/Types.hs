@@ -93,6 +93,10 @@ class (Applicative m, Monad m, MonadThrow m,
                  -> m (Commit r)
     createTag :: CommitOid r -> Signature -> CommitMessage -> Text -> m (Tag r)
 
+    -- Extra
+    hashWorkdirPath  :: TreeFilePath -> m (Maybe (Oid r))
+    getActualWorkdir :: m (Maybe FilePath)
+
 data RepositoryOptions = RepositoryOptions
     { repoPath       :: !FilePath
     , repoWorkingDir :: !(Maybe FilePath)
