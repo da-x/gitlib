@@ -85,6 +85,9 @@ instance (Applicative m, MonadThrow m,
     createTag         = undefined
 
     diffContentsWithTree = undefined
+    hashWorkdirPath   = undefined
+    getActualWorkdir  = undefined
+
 
 sampleFactory :: (MonadReader env m, HasSampleRepository env)
               => Git.RepositoryFactory (ReaderT SampleRepository m) m

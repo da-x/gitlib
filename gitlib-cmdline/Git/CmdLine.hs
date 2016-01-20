@@ -123,6 +123,8 @@ instance (Applicative m, MonadThrow m, MonadIO m)
     createTag         = cliCreateTag
 
     diffContentsWithTree = error "Not defined cliDiffContentsWithTree"
+    hashWorkdirPath   = error "Not defined cliHashWorkdirPath"
+    getActualWorkdir  = error "Not defined cliGetActualWorkdir"
 
 type MonadCli m = (Applicative m, MonadThrow m, MonadIO m)
 

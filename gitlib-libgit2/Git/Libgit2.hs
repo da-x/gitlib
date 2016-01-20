@@ -217,6 +217,9 @@ instance (Applicative m, MonadExcept m,
 
     diffContentsWithTree = error "Not implemented: lgDiffContentsWithTree"
 
+    hashWorkdirPath   = lgHashWorkdirPath
+    getActualWorkdir  = lgGetActualWorkdir
+
     -- buildPackFile   = lgBuildPackFile
     -- buildPackIndex  = lgBuildPackIndexWrapper
     -- writePackFile   = lgWrap . lgWritePackFile
@@ -1491,6 +1494,27 @@ lgRemoteFetch uri fetchSpec = do
 
         r2 <- liftIO $ c'git_remote_download remotePtr nullFunPtr nullPtr
         checkResult r2 "c'git_remote_download failed"
+
+lgHashWorkdirPath :: MonadLg m => Git.TreeFilePath -> ReaderT LgRepo m (Maybe (Git.Oid LgRepo))
+lgHashWorkdirPath filepath = do
+    repo <- Git.getRepository
+    oid <- liftIO mallocForeignPtr
+    liftIO $ withForeignPtr oid $ \ptr ->
+        withForeignPtr (repoObj repo) $ \repoPtr ->
+            withFilePath filepath $ \cstring -> do
+                r <- liftIO $
+                     c'git_repository_hashfile ptr repoPtr cstring c'GIT_OBJ_BLOB nullPtr
+                return $ if r < 0 then Nothing
+                                  else Just $ mkOid oid
+
+lgGetActualWorkdir :: MonadLg m => ReaderT LgRepo m (Maybe FilePath)
+lgGetActualWorkdir = do
+    repo <- Git.getRepository
+    liftIO $ withForeignPtr (repoObj repo) $ \repoPtr -> do
+        workdir <- c'git_repository_workdir repoPtr
+        if workdir == nullPtr
+            then return Nothing
+            else fmap Just $ peekCString workdir
 
 lgFactory :: MonadIO m
           => Git.RepositoryFactory (ReaderT LgRepo m) m LgRepo

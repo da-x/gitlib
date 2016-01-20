@@ -109,6 +109,9 @@ instance Git.MonadGit m => Git.Repository (GitHubRepository m) where
     deleteRepository = ghDeleteRepository
     remoteFetch      = error "Not defined: GitHubRepository.remoteFetch"
 
+    hashWorkdirPath  = error "Not defined: GitHubRepository.hashWorkdirPath"
+    getActualWorkdir = error "Not defined: GitHubRepository.getActualWorkdir"
+
 data GitHubBlob = GitHubBlob
     { ghBlobContent  :: ByteString
     , ghBlobEncoding :: Text

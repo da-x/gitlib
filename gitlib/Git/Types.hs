@@ -93,6 +93,10 @@ class (Applicative m, Monad m, MonadThrow m,
                  -> m (Commit r)
     createTag :: CommitOid r -> Signature -> CommitMessage -> Text -> m (Tag r)
 
+    -- Workdir
+    hashWorkdirPath  :: TreeFilePath -> m (Maybe (Oid r))
+    getActualWorkdir :: m (Maybe FilePath)
+
     -- -- Pack files
     -- buildPackFile :: FilePath -> [Either (CommitOid r) (TreeOid r)]
     --               -> m FilePath
