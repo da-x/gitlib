@@ -1,0 +1,7 @@
+resolver: lts-4.1
+packages:
+- location: gitlib-for-stack
+  extra-dep: true
+- location: hlibgit2-for-stack
+  extra-dep: true
+- .

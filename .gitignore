@@ -7,3 +7,4 @@ fpbuild/
 result
 tags
 default.nix
+.stack-work/
