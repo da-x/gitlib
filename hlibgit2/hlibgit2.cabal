@@ -1,14 +1,19 @@
 Name:                hlibgit2
-Version:             0.18.0.16
+Version:             0.18.0.16.1
 Synopsis:            Low-level bindings to libgit2
 Description:         Bindings to libgit2 v0.18.0.
 License-file:        LICENSE
 License:             MIT
 Author:              John Wiegley, Sakari Jokinen, Jacob Stanleyyeah,
 Maintainer:          johnw@newartisans.com
-Build-Type:          Simple
+Build-Type:          Custom
 Cabal-Version:       >=1.10
 Category:            FFI
+
+custom-setup:
+  setup-depends: base  >= 4.5
+               , directory
+               , Cabal >= 2.0
 
 Extra-source-files:
   libgit2/deps/http-parser/*.h
